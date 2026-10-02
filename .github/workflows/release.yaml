@@ -31,8 +31,8 @@ jobs:
           fi
       - name: Check that tag matches package version
         run: |
-          pkg_version=$(python3 -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])')
-          src_version=$(sed -n 's/^VERSION = "\(.*\)"$/\1/p' src/fypp.py)
+          pkg_version=$(sed -n "s/^[[:blank:]]*version = [\"']\(.*\)[\"'][[:blank:]]*\$/\1/p" pyproject.toml)
+          src_version=$(sed -n "s/^[[:blank:]]*VERSION = [\"']\(.*\)[\"'][[:blank:]]*\$/\1/p" src/fypp.py)
           echo "Tag: ${GITHUB_REF_NAME}, pyproject.toml: ${pkg_version}, src/fypp.py: ${src_version}"
           if [[ "${GITHUB_REF_NAME}" != "${pkg_version}" || "${GITHUB_REF_NAME}" != "${src_version}" ]]; then
             echo "::error::Tag '${GITHUB_REF_NAME}' does not match package version"
