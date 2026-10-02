@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     environment:
-      name: pypi
+      name: test.pypi
       url: https://test.pypi.org/project/fypp/${{ github.ref_name }}/
     permissions:
       id-token: write
